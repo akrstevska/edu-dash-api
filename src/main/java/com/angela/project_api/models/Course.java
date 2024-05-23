@@ -24,11 +24,11 @@ public class Course {
     private String semester;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value = "course-lesson")
+    @JsonIgnore
     private List<Lesson> lessons;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value = "enrollment-course")
+    @JsonIgnore
     private List<Enrollment> enrollments;
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore

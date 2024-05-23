@@ -16,12 +16,10 @@ public class Enrollment {
 
     @ManyToOne
     @JoinColumn(name = "student_id")
-    @JsonBackReference(value = "student-enrollment")
     private Student student;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
-    @JsonBackReference(value = "enrollment-course")
     private Course course;
 
     @Column(name = "enrollment_date")

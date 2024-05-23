@@ -26,7 +26,7 @@ public class Student {
     @Column(name = "current_year")
     private Integer currentYear;
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value = "student-enrollment")
+    @JsonIgnore
     private List<Enrollment> enrollments;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
