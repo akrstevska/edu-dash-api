@@ -1,6 +1,9 @@
 package com.angela.project_api.controllers;
+
 import com.angela.project_api.models.Course;
+import com.angela.project_api.models.Enrollment;
 import com.angela.project_api.services.CourseService;
+import com.angela.project_api.services.EnrollmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,9 @@ import java.util.Optional;
 public class CourseController {
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private EnrollmentService enrollmentService;
 
     @PostMapping
     public ResponseEntity<Map<String, Object>> addCourse(@RequestBody Course course) {
@@ -76,6 +82,33 @@ public class CourseController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/statistics")
+    public ResponseEntity<Map<String, Object>> getCourseStatistics() {
+        List<Course> courses = courseService.getALlCourses();
+        Map<String, Object> statistics = new HashMap<>();
+        int totalCourses = courses.size();
+
+        List<Map<String, Object>> courseStats = courses.stream().map(course -> {
+            Map<String, Object> courseStat = new HashMap<>();
+            List<Enrollment> enrollments = enrollmentService.getEnrollmentsByCourseId(course.getId());
+            long completedEnrollments = enrollments.stream()
+                    .filter(enrollment -> enrollment.getProgress() != null && enrollment.getProgress().getOverallProgress() == 100)
+                    .count();
+
+            courseStat.put("courseId", course.getId());
+            courseStat.put("courseName", course.getTitle());
+            courseStat.put("completionRate", enrollments.isEmpty() ? 0 : (completedEnrollments * 100.0 / enrollments.size()));
+            courseStat.put("popularity", enrollments.size());
+            courseStat.put("enrollmentDeadline", course.getEnrollmentDeadline());
+            return courseStat;
+        }).toList();
+
+        statistics.put("num", totalCourses);
+        statistics.put("stats", courseStats);
+
+        return ResponseEntity.ok(statistics);
     }
 
 }
