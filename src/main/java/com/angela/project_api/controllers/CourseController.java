@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequestMapping("course")
 @RestController
@@ -93,22 +94,30 @@ public class CourseController {
         List<Map<String, Object>> courseStats = courses.stream().map(course -> {
             Map<String, Object> courseStat = new HashMap<>();
             List<Enrollment> enrollments = enrollmentService.getEnrollmentsByCourseId(course.getId());
+
             long completedEnrollments = enrollments.stream()
-                    .filter(enrollment -> enrollment.getProgress() != null && enrollment.getProgress().getOverallProgress() == 100)
+                    .filter(enrollment -> enrollment.isCompletionStatus())
                     .count();
 
             courseStat.put("courseId", course.getId());
             courseStat.put("courseName", course.getTitle());
-            courseStat.put("completionRate", enrollments.isEmpty() ? 0 : (completedEnrollments * 100.0 / enrollments.size()));
+
+            // Calculate completion rate based on enrollments with true completionStatus
+            double completionRate = enrollments.isEmpty() ? 0 : (completedEnrollments * 100.0 / enrollments.size());
+            courseStat.put("completionRate", completionRate);
+
+            // Popularity is just the number of enrollments
             courseStat.put("popularity", enrollments.size());
             courseStat.put("enrollmentDeadline", course.getEnrollmentDeadline());
+
             return courseStat;
-        }).toList();
+        }).collect(Collectors.toList());
 
         statistics.put("num", totalCourses);
         statistics.put("stats", courseStats);
 
         return ResponseEntity.ok(statistics);
     }
+
 
 }
