@@ -62,7 +62,6 @@ public class StudentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
-//    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping()
     public ResponseEntity<List<Student>> getAllStudents() {
         List<Student> students = studentService.getAllStudents();

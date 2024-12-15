@@ -84,7 +84,6 @@ public class CourseController {
             return ResponseEntity.notFound().build();
         }
     }
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/statistics")
     public ResponseEntity<Map<String, Object>> getCourseStatistics() {
         List<Course> courses = courseService.getALlCourses();
