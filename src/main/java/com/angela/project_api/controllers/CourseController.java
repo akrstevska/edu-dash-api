@@ -102,11 +102,9 @@ public class CourseController {
             courseStat.put("courseId", course.getId());
             courseStat.put("courseName", course.getTitle());
 
-            // Calculate completion rate based on enrollments with true completionStatus
             double completionRate = enrollments.isEmpty() ? 0 : (completedEnrollments * 100.0 / enrollments.size());
             courseStat.put("completionRate", completionRate);
 
-            // Popularity is just the number of enrollments
             courseStat.put("popularity", enrollments.size());
             courseStat.put("enrollmentDeadline", course.getEnrollmentDeadline());
 
