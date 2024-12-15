@@ -96,7 +96,11 @@ public class CourseController {
             List<Enrollment> enrollments = enrollmentService.getEnrollmentsByCourseId(course.getId());
 
             long completedEnrollments = enrollments.stream()
-                    .filter(enrollment -> enrollment.isCompletionStatus())
+                    .filter(Enrollment::isCompletionStatus)
+                    .count();
+
+            long activeEnrollments = enrollments.stream()
+                    .filter(enrollment -> !enrollment.isCompletionStatus())
                     .count();
 
             courseStat.put("courseId", course.getId());
@@ -107,6 +111,34 @@ public class CourseController {
 
             courseStat.put("popularity", enrollments.size());
             courseStat.put("enrollmentDeadline", course.getEnrollmentDeadline());
+
+            courseStat.put("activeEnrollments", activeEnrollments);
+
+            // Calculate grade percentages
+            Map<String, Double> gradeDistribution = new HashMap<>();
+            long totalEnrollments = enrollments.size();
+
+            if (totalEnrollments > 0) {
+                long gradeA = enrollments.stream().filter(e -> e.getGrade() >= 90 && e.getGrade() <= 100).count();
+                long gradeB = enrollments.stream().filter(e -> e.getGrade() >= 80 && e.getGrade() <= 89).count();
+                long gradeC = enrollments.stream().filter(e -> e.getGrade() >= 70 && e.getGrade() <= 79).count();
+                long gradeD = enrollments.stream().filter(e -> e.getGrade() >= 60 && e.getGrade() <= 69).count();
+                long gradeF = enrollments.stream().filter(e -> e.getGrade() < 60).count();
+
+                gradeDistribution.put("A", gradeA * 100.0 / totalEnrollments);
+                gradeDistribution.put("B", gradeB * 100.0 / totalEnrollments);
+                gradeDistribution.put("C", gradeC * 100.0 / totalEnrollments);
+                gradeDistribution.put("D", gradeD * 100.0 / totalEnrollments);
+                gradeDistribution.put("F", gradeF * 100.0 / totalEnrollments);
+            } else {
+                gradeDistribution.put("A", 0.0);
+                gradeDistribution.put("B", 0.0);
+                gradeDistribution.put("C", 0.0);
+                gradeDistribution.put("D", 0.0);
+                gradeDistribution.put("F", 0.0);
+            }
+
+            courseStat.put("grades", gradeDistribution);
 
             return courseStat;
         }).collect(Collectors.toList());
