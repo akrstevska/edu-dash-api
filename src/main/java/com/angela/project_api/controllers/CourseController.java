@@ -123,7 +123,7 @@ public class CourseController {
                 long gradeB = enrollments.stream().filter(e -> e.getGrade() >= 80 && e.getGrade() <= 89).count();
                 long gradeC = enrollments.stream().filter(e -> e.getGrade() >= 70 && e.getGrade() <= 79).count();
                 long gradeD = enrollments.stream().filter(e -> e.getGrade() >= 60 && e.getGrade() <= 69).count();
-                long gradeF = enrollments.stream().filter(e -> e.getGrade() < 60).count();
+                long gradeF = enrollments.stream().filter(e -> e.getGrade() < 60 && e.getGrade() >0).count();
 
                 gradeDistribution.put("A", gradeA * 100.0 / totalEnrollments);
                 gradeDistribution.put("B", gradeB * 100.0 / totalEnrollments);
