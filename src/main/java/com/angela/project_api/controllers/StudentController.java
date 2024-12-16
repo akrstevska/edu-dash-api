@@ -17,6 +17,8 @@ import java.util.Map;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public ResponseEntity<Map<String, Object>> addStudent(@RequestBody Student student) {
         boolean added = studentService.createStudent(student);
