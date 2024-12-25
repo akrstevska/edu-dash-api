@@ -16,7 +16,7 @@ public class Course {
     private String description;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "instructor_id")
-    @JsonBackReference(value = "course-instructor")
+    @JsonManagedReference(value = "course-instructor")
     private Instructor instructor;
     @Column(name = "enrollment_deadline")
     private Date enrollmentDeadline;

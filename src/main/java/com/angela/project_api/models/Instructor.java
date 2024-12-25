@@ -25,8 +25,9 @@ public class Instructor {
     @Column(name = "department")
     private String department;
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value = "course-instructor")
+    @JsonBackReference(value = "course-instructor")
     private List<Course> courses;
+
 
     public int getId() {
         return id;
