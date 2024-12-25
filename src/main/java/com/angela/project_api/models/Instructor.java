@@ -25,8 +25,8 @@ public class Instructor {
     @Column(name = "department")
     private String department;
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference(value = "course-instructor")
-    private List<Course> courses;
+    private List<Course> courses; // This can remain for reference but is not necessary for serialization
+
 
 
     public int getId() {

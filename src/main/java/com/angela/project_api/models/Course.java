@@ -14,9 +14,8 @@ public class Course {
     private int id;
     private String title;
     private String description;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER) // Eager fetching to load instructor
     @JoinColumn(name = "instructor_id")
-    @JsonManagedReference(value = "course-instructor")
     private Instructor instructor;
     @Column(name = "enrollment_deadline")
     private Date enrollmentDeadline;
