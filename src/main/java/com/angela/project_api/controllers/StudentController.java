@@ -18,7 +18,6 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public ResponseEntity<Map<String, Object>> addStudent(@RequestBody Student student) {
         boolean added = studentService.createStudent(student);
@@ -64,7 +63,6 @@ public class StudentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping()
     public ResponseEntity<List<Student>> getAllStudents() {
         List<Student> students = studentService.getAllStudents();
