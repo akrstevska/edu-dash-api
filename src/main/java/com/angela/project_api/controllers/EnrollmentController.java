@@ -41,7 +41,6 @@ public class EnrollmentController {
             return ResponseEntity.notFound().build();
         }
     }
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/getByStudent/{studentId}")
     public ResponseEntity<?> getEnrollmentsByStudentId(@PathVariable int studentId) {
         List<Enrollment> enrollments = enrollmentService.getEnrollmentsByStudentId(studentId);
