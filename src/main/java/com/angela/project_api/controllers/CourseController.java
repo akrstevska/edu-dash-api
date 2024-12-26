@@ -125,11 +125,11 @@ public class CourseController {
                 long gradeD = enrollments.stream().filter(e -> e.getGrade() >= 60 && e.getGrade() <= 69).count();
                 long gradeF = enrollments.stream().filter(e -> e.getGrade() < 60 && e.getGrade() > 0).count();
 
-                gradeDistribution.put("A", Math.round((gradeA * 100.0 / totalEnrollments) * 1000) / 1000.0);
-                gradeDistribution.put("B", Math.round((gradeB * 100.0 / totalEnrollments) * 1000) / 1000.0);
-                gradeDistribution.put("C", Math.round((gradeC * 100.0 / totalEnrollments) * 1000) / 1000.0);
-                gradeDistribution.put("D", Math.round((gradeD * 100.0 / totalEnrollments) * 1000) / 1000.0);
-                gradeDistribution.put("F", Math.round((gradeF * 100.0 / totalEnrollments) * 1000) / 1000.0);
+                gradeDistribution.put("A", roundToThreeDecimalPlaces(gradeA * 100.0 / totalEnrollments));
+                gradeDistribution.put("B", roundToThreeDecimalPlaces(gradeB * 100.0 / totalEnrollments));
+                gradeDistribution.put("C", roundToThreeDecimalPlaces(gradeC * 100.0 / totalEnrollments));
+                gradeDistribution.put("D", roundToThreeDecimalPlaces(gradeD * 100.0 / totalEnrollments));
+                gradeDistribution.put("F", roundToThreeDecimalPlaces(gradeF * 100.0 / totalEnrollments));
             } else {
                 gradeDistribution.put("A", 0.0);
                 gradeDistribution.put("B", 0.0);
@@ -137,6 +137,8 @@ public class CourseController {
                 gradeDistribution.put("D", 0.0);
                 gradeDistribution.put("F", 0.0);
             }
+
+
             courseStat.put("grades", gradeDistribution);
 
             return courseStat;
@@ -147,6 +149,8 @@ public class CourseController {
 
         return ResponseEntity.ok(statistics);
     }
-
+    private double roundToThreeDecimalPlaces(double value) {
+        return Math.round(value * 1000.0) / 1000.0;
+    }
 
 }
