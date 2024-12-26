@@ -17,7 +17,7 @@ public class Progress {
     @JsonIgnore
     private Enrollment enrollment;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "completed_lessons",
             joinColumns = @JoinColumn(name = "progress_id"),

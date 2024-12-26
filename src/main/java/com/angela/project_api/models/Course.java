@@ -14,7 +14,7 @@ public class Course {
     private int id;
     private String title;
     private String description;
-    @ManyToOne(fetch = FetchType.EAGER) // Eager fetching to load instructor
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "instructor_id")
     private Instructor instructor;
     @Column(name = "enrollment_deadline")
