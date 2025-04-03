@@ -8,7 +8,7 @@ This API enables seamless management and interaction with an online course platf
 
 ## Base Url
 
-[<code>https://onlinecourseapi.azurewebsites.net</code>](https://onlinecourseapi.azurewebsites.net)
+[<code>https://edudashboard-hqc2bxe4aabhgvb8.azurewebsites.net</code>]([https://onlinecourseapi.azurewebsites.net](https://edudashboard-hqc2bxe4aabhgvb8.azurewebsites.net))
 
 ## DB Diagram
 
