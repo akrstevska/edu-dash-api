@@ -4,7 +4,7 @@
 This API enables seamless management and interaction with an online course platform, providing comprehensive tools for handling various educational activities. It allows instructors and students to efficiently manage courses, lessons, enrollments, progress tracking, forums, and assessments.
 
 ## API Documentation
-[<code>https://documenter.getpostman.com/view/19662009/2sA3QpAY1W</code>](https://documenter.getpostman.com/view/19662009/2sA3QpAY1W)
+[<code>https://documenter.getpostman.com/view/19662009/2sB2cSi4WZ</code>](https://documenter.getpostman.com/view/19662009/2sB2cSi4WZ)
 
 ## Base Url
 
